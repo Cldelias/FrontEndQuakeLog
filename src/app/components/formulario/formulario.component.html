@@ -1,0 +1,56 @@
+<form [formGroup]="formGame" (ngSubmit)="onSubmit()">
+        <div [ngClass]="classCss" role="alert" *ngIf="message">
+                <strong>{{ message.text }}</strong>
+              </div>    
+  <div class="form-group">
+            <label for="fileName">Arquivo</label>
+                    <select class="form-control" formControlName="fileName" name="fileName" id="fileName">
+            <option *ngFor="let file of files">
+                {{file}}
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary mt-4" value="Pesquisar">
+    <input (click)="limpar()" class="btn btn-primary mt-4" value="Limpar">
+</form>
+<div class="row" *ngIf="items">
+        <div class="col-md-8">
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">List Kills</h3>
+            </div>
+            <div class="box-body">
+              <table class="table table-striped">
+               <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Total Kills</th>
+                  <th>Players</th>
+                  <th>Kills</th>
+                </tr>
+              </thead>
+               <tbody>                
+                <tr *ngFor="let item of items">
+                  <td align="left">{{ item.nameGame }}</td>
+                  <td align="right">{{ item.amountKills }}</td>
+                  <td>
+                    <tr *ngFor="let player of item.players">
+                       <td align="left">{{ player }}</td>
+                    </tr>
+                  </td>
+                  <td>
+                     <tr>
+                        <th>Player</th>
+                        <th>Total Kills</th>
+                     </tr>
+                    <tr *ngFor="let kill of item.kills | keyvalue">
+                       <td align="left">{{kill.key}}</td>
+                       <td align="right">{{kill.value}}</td>
+                    </tr>
+                  </td>
+                </tr>
+            </tbody>                
+              </table>
+            </div>
+          </div>
+    </div>
+  
